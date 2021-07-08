@@ -136,14 +136,14 @@ export default class Bootstrap {
    }
 
    private async onUserRequestsToGoOnline() {
-      if (!Storage.get().getItem('serverIsOmniscient') && OJSXC_CONFIG.serverType !== 'internal') {
-         this.jsxc.showLoginBox();
-
-         return;
-      }
-
       try {
          let settings = await Settings.loadConnection(undefined, undefined);
+
+         if (!Storage.get().getItem('serverIsOmniscient') && OJSXC_CONFIG.serverType !== 'internal') {
+            this.jsxc.showLoginBox();
+
+            return;
+         }
 
          if (!settings) {
             throw new Error('No settings provided');
