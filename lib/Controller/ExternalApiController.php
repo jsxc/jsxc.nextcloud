@@ -179,6 +179,12 @@ class ExternalApiController extends SignatureProtectedApiController
 				$roster[$uidMember]['groups'][] = $groupName;
 			}
 		}
+		if (empty($roster)) {
+			// The user is in no group, return fullname anyway
+			$roster[$currentUser->getUID()] = [
+					'name'=> $currentUser->getDisplayName()
+				];
+		}
 
 		return [
 		 'result' => 'success',
